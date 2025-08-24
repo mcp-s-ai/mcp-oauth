@@ -31,7 +31,6 @@ interface RawClient {
   client: string
   code?: string
   code_challenge?: string
-  user?: string
   credentials?: string
   oauth_credentials?: string
 }
@@ -102,31 +101,6 @@ export function getByCode(client_id: string, code: string): Client | null {
     return null
   }
   return parseClient(clientInfo)
-}
-
-
-// LEGACY to support npx @mcp-s/mcp
-export function createUser({
-  client_id,
-  access_token
-}: {
-  client_id: string
-  access_token: string
-}) {
-  const credentials = {
-    access_token,
-    access_token_expired_at: Date.now() + (parseInt(process.env.TOKEN_EXPIRATION_TIME || "3600000", 10)),
-  }
-  const clientInfo: ClientInfo = {
-    client_id,
-  }
-  db.prepare(
-    `INSERT INTO clients (client_id, client, credentials, user) VALUES (?, ?, ?, ?)`,
-  ).run(
-    client_id,
-    JSON.stringify(clientInfo),
-    JSON.stringify(credentials),
-  )
 }
 
 export function getByRefreshToken(refresh_token: string): Client | null {
