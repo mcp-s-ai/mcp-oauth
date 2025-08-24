@@ -172,7 +172,7 @@ Profile URL: ${userData.html_url}`,
   const mcpOAuth = McpOAuth(config, mcpHandler)
 
   // Mount MCP OAuth middleware
-  app.use("/", mcpOAuth.router)
+  app.use(mcpOAuth.router)
 
   const port = parseInt(process.env.PORT || "3000")
   const server = app.listen(port, () => {

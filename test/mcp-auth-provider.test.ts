@@ -110,7 +110,7 @@ describe("MCP Auth Provider", () => {
     
     // Check required OAuth parameters
     assert.equal(url.searchParams.get("client_id"), "test-client-id")
-    assert.equal(url.searchParams.get("redirect_uri"), "http://localhost/authorized")
+    assert.equal(url.searchParams.get("redirect_uri"), "http://localhost/oauth/callback")
     assert.equal(url.searchParams.get("response_type"), "code")
     assert.equal(url.searchParams.get("scope"), "repo")
     assert.equal(url.searchParams.get("access_type"), "offline")

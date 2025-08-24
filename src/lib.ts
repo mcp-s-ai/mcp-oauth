@@ -27,7 +27,7 @@ async function exchangeOAuthCode(
     client_id: config.clientId,
     client_secret: config.clientSecret,
     code: authorizationCode,
-    redirect_uri: `${config.baseUrl}/authorized`,
+    redirect_uri: `${config.baseUrl}/oauth/callback`,
     grant_type: "authorization_code",
   }
   
