@@ -124,9 +124,7 @@ export function McpOAuth(
   )
 
   router.get("/oauth/callback", async (req, res) => {
-    try {
-      console.log("authorized", req.query)
-      
+    try {      
       const { code: oauthCode, state: stateJson } = req.query
       
       if (!oauthCode || !stateJson) {

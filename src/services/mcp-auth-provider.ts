@@ -41,7 +41,6 @@ const getAuthCallbackUrl = (config: McpOAuthConfig): string => {
 export const createMcpAuthProvider = (config: McpOAuthConfig): OAuthServerProvider => ({
   clientsStore: {
     getClient: async (client_id) => {
-      console.log("getClient called with", { client_id })
       const client = getByClientId(client_id)
       if (!client) {
         throw new Error("Unauthorized: Invalid client ID")
@@ -50,13 +49,11 @@ export const createMcpAuthProvider = (config: McpOAuthConfig): OAuthServerProvid
       return client.client as OAuthClientInformationFull
     },
     registerClient: async (client: OAuthClientInformationFull) => {
-      console.log("registerClient called with", { client })
       createClient({ client })
       return client
     },
   },
   verifyAccessToken: async (token) => {
-    console.log("verifyAccessToken called with", { token })
     const client = getByAccessToken(token)
     if (!client) {
       throw new Error("Unauthorized")
@@ -78,8 +75,6 @@ export const createMcpAuthProvider = (config: McpOAuthConfig): OAuthServerProvid
     },
     res: Response,
   ) => {
-    console.log("authorize called with", { client, params })
-
     // Store the authorization request data for later use in the callback
     const code = crypto.randomBytes(32).toString("hex")
     if (params.codeChallenge) {
@@ -121,8 +116,6 @@ export const createMcpAuthProvider = (config: McpOAuthConfig): OAuthServerProvid
       state: JSON.stringify(stateData),
     })
 
-    console.log("oauthAuthUrl", oauthAuthUrl)
-
     // Redirect to the OAuth provider's authorization URL
     res.redirect(oauthAuthUrl)
   },
@@ -130,10 +123,7 @@ export const createMcpAuthProvider = (config: McpOAuthConfig): OAuthServerProvid
     oauthClient: OAuthClientInformationFull,
     authorizationCode: string,
   ) => {
-    console.log("challengeForAuthorizationCode called with", {
-      oauthClient,
-      authorizationCode,
-    })
+
     const client = getByCode(oauthClient.client_id, authorizationCode)
     if (!client) {
       throw new Error("Unauthorized: Invalid authorization code")
@@ -146,13 +136,6 @@ export const createMcpAuthProvider = (config: McpOAuthConfig): OAuthServerProvid
     codeVerifier?: string,
     redirectUri?: string,
   ) => {
-    console.log("exchangeAuthorizationCode called with", {
-      oauthClient,
-      authorizationCode,
-      codeVerifier,
-      redirectUri,
-    })
-
     const client = getByCode(oauthClient.client_id, authorizationCode)
     if (!client) {
       throw new Error("Unauthorized: Invalid authorization code")
@@ -183,11 +166,6 @@ export const createMcpAuthProvider = (config: McpOAuthConfig): OAuthServerProvid
     refreshToken: string,
     scopes?: string[],
   ) => {
-    console.log("exchangeRefreshToken called with", {
-      oauthClient,
-      refreshToken,
-      scopes,
-    })
     const client = getByRefreshToken(refreshToken)
     if (!client) {
       throw new Error("Unauthorized: Invalid refresh token")
