@@ -132,9 +132,7 @@ export const createMcpAuthProvider = (config: McpOAuthConfig): OAuthServerProvid
   },
   exchangeAuthorizationCode: async (
     oauthClient: OAuthClientInformationFull,
-    authorizationCode: string,
-    codeVerifier?: string,
-    redirectUri?: string,
+    authorizationCode: string
   ) => {
     const client = getByCode(oauthClient.client_id, authorizationCode)
     if (!client) {
