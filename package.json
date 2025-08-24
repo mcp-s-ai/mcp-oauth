@@ -1,6 +1,6 @@
 {
   "name": "mcp-s-oauth",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Express middleware library for MCP (Model Context Protocol) OAuth authentication",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
