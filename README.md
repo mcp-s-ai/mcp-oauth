@@ -97,27 +97,6 @@ app.use("/", mcpOAuth.router)
 app.listen(3000)
 ```
 
-### Environment Setup
-
-```bash
-# OAuth Provider Credentials (required - use one set)
-# For GitHub:
-GITHUB_CLIENT_ID=your-github-client-id
-GITHUB_CLIENT_SECRET=your-github-client-secret
-
-# For Google:
-GOOGLE_CLIENT_ID=your-google-client-id
-GOOGLE_CLIENT_SECRET=your-google-client-secret
-
-# For any OAuth provider:
-OAUTH_CLIENT_ID=your-oauth-client-id
-OAUTH_CLIENT_SECRET=your-oauth-client-secret
-
-# Server config (optional)
-BASE_URL=http://localhost:3000
-PORT=3000
-```
-
 ## OAuth Provider Setup
 
 ### GitHub OAuth App Setup
@@ -470,47 +449,7 @@ console.log("Result:", result)
   - Handles tools/list and tools/call requests
   - Returns tools you've implemented in your mcpHandler
 
-## Environment Variables
-
-| Variable | Required | Description | Example |
-|----------|----------|-------------|---------|
-| `OAUTH_CLIENT_ID` | ✅ | OAuth provider client ID | `abc123def456` |
-| `OAUTH_CLIENT_SECRET` | ✅ | OAuth provider client secret | `secret123` |
-| `GITHUB_CLIENT_ID` | ✅* | GitHub client ID (if using GitHub) | `abc123def456` |
-| `GITHUB_CLIENT_SECRET` | ✅* | GitHub client secret (if using GitHub) | `secret123` |
-| `GOOGLE_CLIENT_ID` | ✅* | Google client ID (if using Google) | `123-abc.apps.googleusercontent.com` |
-| `GOOGLE_CLIENT_SECRET` | ✅* | Google client secret (if using Google) | `GOCSPX-secret123` |
-| `BASE_URL` | ❌ | Base URL for OAuth callbacks | `http://localhost:3000` |
-| `PORT` | ❌ | Port to run the server on | `3000` |
-| `AUTH_SECRET` | ❌ | Secret for token signing (optional) | `random-secret-key` |
-
-*Required only if using that specific provider
-
 ## Testing the Server
-
-### Manual Testing
-
-1. **Start the server**:
-   ```bash
-   npm run dev
-   ```
-
-2. **Check server info**:
-   ```bash
-   curl http://localhost:3000/
-   ```
-
-3. **Health check**:
-   ```bash
-   curl http://localhost:3000/health
-   ```
-
-4. **Test OAuth flow**:
-   - Visit `http://localhost:3000/auth/authorize` in your browser
-   - Complete OAuth authorization with your provider
-   - Use the returned token for MCP requests
-
-### MCP Client Testing
 
 Test the MCP server using the official SDK client:
 
@@ -551,17 +490,12 @@ console.log("Result:", result.content)
 
 ```
 src/
-├── server.ts              # Main MCP server implementation
-├── libs/
-│   ├── config.ts          # Environment configuration
-│   ├── auth.ts            # Authentication utilities
-│   ├── session.ts         # Session management
-│   └── tokens.ts          # Token utilities
-├── services/
-│   └── db.ts              # Database operations
-└── types/
-    ├── auth.types.ts      # Authentication types
-    └── clients.types.ts   # Client types
+├── index.ts               # Library exports
+├── server.ts              # MCP server implementation  
+├── lib.ts                 # Core utilities
+├── connectors/            # OAuth provider connectors
+├── services/              # Database & auth services
+└── types/                 # TypeScript types
 ```
 
 ### Building and Running

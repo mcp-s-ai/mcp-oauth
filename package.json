@@ -34,7 +34,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mcp-s-ai/mcp-oauth.git"
+    "url": "git+https://github.com/mcp-s-ai/mcp-s-oauth.git"
   },
   "keywords": [
     "mcp",
@@ -51,7 +51,7 @@
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mcp-s-ai/mcp-oauth/issues"
+    "url": "https://github.com/mcp-s-ai/mcp-s-oauth/issues"
   },
   "homepage": "https://www.mcp-s.com/",
   "dependencies": {
