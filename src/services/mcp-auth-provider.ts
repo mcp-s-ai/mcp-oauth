@@ -158,8 +158,6 @@ export const createMcpAuthProvider = (config: McpOAuthConfig): OAuthServerProvid
       throw new Error("Unauthorized: Invalid authorization code")
     }
 
-    // Note: User info is not required for OAuth token exchange
-
     const refreshToken = crypto.randomBytes(32).toString("hex")
     const accessToken = crypto.randomBytes(32).toString("hex")
     const accessTokenExpiredAt = Date.now() + (parseInt(process.env.TOKEN_EXPIRATION_TIME || "3600000", 10))

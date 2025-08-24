@@ -6,14 +6,12 @@ import {
   getByAccessToken,
   updateCodes,
   getByCode,
-  updateUser,
   getByRefreshToken,
   updateCredentials,
 } from "../src/services/db.ts"
 import type {
   ClientInfo,
   Credentials,
-  User,
 } from "../src/types/clients.types.ts"
 import { DatabaseSync } from "node:sqlite"
 import path from "path"
@@ -50,13 +48,6 @@ describe("DB", () => {
     refresh_token: "refresh-token-1",
   }
 
-  const user: User = {
-    id: "user-1",
-    name: "Test User",
-    email: "test@example.com",
-    image: null,
-  }
-
   it("should create and retrieve a client by client_id", () => {
     createClient({ client: clientInfo })
     const found = getByClientId(clientInfo.client_id)
@@ -87,18 +78,6 @@ describe("DB", () => {
     const found = getByCode(clientInfo.client_id, "code-2")
     assert(found, "Client should be found by code")
     assert.equal(found!.code, "code-2")
-  })
-
-  it("should update and retrieve user", () => {
-    createClient({ client: clientInfo })
-    updateCodes({
-      client_id: clientInfo.client_id,
-      code: "code-3",
-      code_challenge: "challenge-3",
-    })
-    updateUser({ client_id: clientInfo.client_id, code: "code-3", user })
-    const found = getByCode(clientInfo.client_id, "code-3")
-    assert.deepEqual(found!.user, user)
   })
 
   it("should update and retrieve credentials by access token", () => {
