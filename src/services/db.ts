@@ -48,6 +48,9 @@ function parseClient(client: RawClient): Client {
     credentials: client.credentials
       ? (JSON.parse(client.credentials) as Credentials)
       : undefined,
+    oauth_credentials: client.oauth_credentials
+      ? (JSON.parse(client.oauth_credentials) as Credentials)
+      : undefined,
   }
 }
 

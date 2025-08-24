@@ -31,4 +31,5 @@ export interface Client {
   code_challenge?: string
   user?: User
   credentials?: Credentials
+  oauth_credentials?: Credentials
 }

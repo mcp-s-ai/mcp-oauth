@@ -63,7 +63,7 @@ export const createMcpAuthProvider = (config: McpOAuthConfig): OAuthServerProvid
     }
 
     return {
-      token,
+      token: client.oauth_credentials?.access_token || "",
       clientId: client.client_id,
       scopes: ["openid", "email", "profile"],
       expiresAt: client.credentials!.access_token_expired_at,
