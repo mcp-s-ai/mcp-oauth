@@ -35,7 +35,7 @@ const getUrlWithQueryParams = (baseUrl: string, params: Record<string, string>):
 }
 
 const getAuthCallbackUrl = (config: McpOAuthConfig): string => {
-  return `${config.baseUrl}/authorized`
+  return `${config.baseUrl}/oauth/callback`
 }
 
 export const createMcpAuthProvider = (config: McpOAuthConfig): OAuthServerProvider => ({
