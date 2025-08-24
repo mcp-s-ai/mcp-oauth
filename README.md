@@ -146,47 +146,32 @@ For any OAuth 2.0 provider, you'll need:
 
 This library includes pre-built connectors for popular OAuth providers with minimal scopes for enhanced security:
 
-### Communication & Collaboration
-- ![Slack](https://www.google.com/s2/favicons?sz=64&domain=slack.com) **Slack** - `slackConnector`
-- ![Gmail](https://www.google.com/s2/favicons?sz=64&domain=gmail.com) **Gmail** - `gmailConnector`
-- ![Google Calendar](https://www.google.com/s2/favicons?sz=64&domain=calendar.google.com) **Google Calendar** - `googleCalendarConnector`
-
-### Project & Task Management
-- ![Jira](https://www.google.com/s2/favicons?sz=64&domain=atlassian.com) **Jira** - `jiraConnector`
-- ![Trello](https://www.google.com/s2/favicons?sz=64&domain=trello.com) **Trello** - `trelloConnector`
-- ![Asana](https://www.google.com/s2/favicons?sz=64&domain=asana.com) **Asana** - `asanaConnector`
-- ![Notion](https://www.google.com/s2/favicons?sz=64&domain=notion.so) **Notion** - `notionConnector`
-- ![Monday](https://www.google.com/s2/favicons?sz=64&domain=monday.com) **Monday** - `mondayConnector`
-
-### Code Management & DevOps
-- ![GitHub](https://www.google.com/s2/favicons?sz=64&domain=github.com) **GitHub** - `githubConnector`
-- ![GitLab](https://www.google.com/s2/favicons?sz=64&domain=gitlab.com) **GitLab** - `gitlabConnector`
-
-### File Storage & Docs
-- ![Google Workspace](https://www.google.com/s2/favicons?sz=64&domain=workspace.google.com) **Google Workspace** - `googleWorkspaceConnector`
-- ![Google Drive](https://www.google.com/s2/favicons?sz=64&domain=drive.google.com) **Google Drive** - `googleDriveConnector`
-- ![Google Sheets](https://www.google.com/s2/favicons?sz=64&domain=sheets.google.com) **Google Sheets** - `googleSheetsConnector`
-- ![Google Forms](https://www.google.com/s2/favicons?sz=64&domain=forms.google.com) **Google Forms** - `googleFormsConnector`
-- ![Google Slides](https://www.google.com/s2/favicons?sz=64&domain=slides.google.com) **Google Slides** - `googleSlidesConnector`
-
-### CRM & Sales
-- ![Salesforce](https://www.google.com/s2/favicons?sz=64&domain=salesforce.com) **Salesforce** - `salesforceConnector`
-
-### Design & Prototyping
-- ![Figma](https://www.google.com/s2/favicons?sz=64&domain=figma.com) **Figma** - `figmaConnector`
-- ![Zeplin](https://www.google.com/s2/favicons?sz=64&domain=zeplin.io) **Zeplin** - `zeplinConnector`
-
-### Analytics & Product Insights
-- ![Amplitude](https://www.google.com/s2/favicons?sz=64&domain=amplitude.com) **Amplitude** - `amplitudeConnector`
-- ![Google Analytics](https://www.google.com/s2/favicons?sz=64&domain=analytics.google.com) **Google Analytics** - `googleAnalyticsConnector`
-
-### Maps & Location
-- ![Google Maps](https://www.google.com/s2/favicons?sz=64&domain=maps.google.com) **Google Maps** - `googleMapsConnector`
-
-### Generic OAuth
-- ![Discord](https://www.google.com/s2/favicons?sz=64&domain=discord.com) **Discord** - `discordConnector`
-- ![Spotify](https://www.google.com/s2/favicons?sz=64&domain=spotify.com) **Spotify** - `spotifyConnector`
-- ![Twitter](https://www.google.com/s2/favicons?sz=64&domain=twitter.com) **Twitter** - `twitterConnector`
+| Service | Connector |
+|---------|-----------|
+| <img src="https://www.google.com/s2/favicons?sz=16&domain=slack.com" width="16" height="16" style="vertical-align: middle;"> Slack | `slackConnector` |
+| <img src="https://www.google.com/s2/favicons?sz=16&domain=google.com" width="16" height="16" style="vertical-align: middle;"> Gmail | `gmailConnector` |
+| <img src="https://www.google.com/s2/favicons?sz=16&domain=calendar.google.com" width="16" height="16" style="vertical-align: middle;"> Google Calendar | `googleCalendarConnector` |
+| <img src="https://www.google.com/s2/favicons?sz=16&domain=atlassian.com" width="16" height="16" style="vertical-align: middle;"> Jira | `jiraConnector` |
+| <img src="https://www.google.com/s2/favicons?sz=16&domain=trello.com" width="16" height="16" style="vertical-align: middle;"> Trello | `trelloConnector` |
+| <img src="https://www.google.com/s2/favicons?sz=16&domain=asana.com" width="16" height="16" style="vertical-align: middle;"> Asana | `asanaConnector` |
+| <img src="https://www.google.com/s2/favicons?sz=16&domain=notion.so" width="16" height="16" style="vertical-align: middle;"> Notion | `notionConnector` |
+| <img src="https://www.google.com/s2/favicons?sz=16&domain=monday.com" width="16" height="16" style="vertical-align: middle;"> Monday | `mondayConnector` |
+| <img src="https://www.google.com/s2/favicons?sz=16&domain=github.com" width="16" height="16" style="vertical-align: middle;"> GitHub | `githubConnector` |
+| <img src="https://www.google.com/s2/favicons?sz=16&domain=gitlab.com" width="16" height="16" style="vertical-align: middle;"> GitLab | `gitlabConnector` |
+| <img src="https://www.google.com/s2/favicons?sz=16&domain=workspace.google.com" width="16" height="16" style="vertical-align: middle;"> Google Workspace | `googleWorkspaceConnector` |
+| <img src="https://www.google.com/s2/favicons?sz=16&domain=drive.google.com" width="16" height="16" style="vertical-align: middle;"> Google Drive | `googleDriveConnector` |
+| <img src="https://www.google.com/s2/favicons?sz=16&domain=sheets.google.com" width="16" height="16" style="vertical-align: middle;"> Google Sheets | `googleSheetsConnector` |
+| <img src="https://www.google.com/s2/favicons?sz=16&domain=forms.google.com" width="16" height="16" style="vertical-align: middle;"> Google Forms | `googleFormsConnector` |
+| <img src="https://www.google.com/s2/favicons?sz=16&domain=slides.google.com" width="16" height="16" style="vertical-align: middle;"> Google Slides | `googleSlidesConnector` |
+| <img src="https://www.google.com/s2/favicons?sz=16&domain=salesforce.com" width="16" height="16" style="vertical-align: middle;"> Salesforce | `salesforceConnector` |
+| <img src="https://www.google.com/s2/favicons?sz=16&domain=figma.com" width="16" height="16" style="vertical-align: middle;"> Figma | `figmaConnector` |
+| <img src="https://www.google.com/s2/favicons?sz=16&domain=zeplin.io" width="16" height="16" style="vertical-align: middle;"> Zeplin | `zeplinConnector` |
+| <img src="https://www.google.com/s2/favicons?sz=16&domain=amplitude.com" width="16" height="16" style="vertical-align: middle;"> Amplitude | `amplitudeConnector` |
+| <img src="https://www.google.com/s2/favicons?sz=16&domain=analytics.google.com" width="16" height="16" style="vertical-align: middle;"> Google Analytics | `googleAnalyticsConnector` |
+| <img src="https://www.google.com/s2/favicons?sz=16&domain=maps.google.com" width="16" height="16" style="vertical-align: middle;"> Google Maps | `googleMapsConnector` |
+| <img src="https://www.google.com/s2/favicons?sz=16&domain=discord.com" width="16" height="16" style="vertical-align: middle;"> Discord | `discordConnector` |
+| <img src="https://www.google.com/s2/favicons?sz=16&domain=spotify.com" width="16" height="16" style="vertical-align: middle;"> Spotify | `spotifyConnector` |
+| <img src="https://www.google.com/s2/favicons?sz=16&domain=twitter.com" width="16" height="16" style="vertical-align: middle;"> Twitter | `twitterConnector` |
 
 ## Example Usage with GitHub
 
