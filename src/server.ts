@@ -1,5 +1,6 @@
 import express from "express"
 import { Server } from "@modelcontextprotocol/sdk/server/index.js"
+
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js"
 import {
   CallToolRequestSchema,
@@ -164,7 +165,7 @@ Profile URL: ${userData.html_url}`,
     }
 
     // Handle the request using the original express request
-    await transport.handleRequest(req as any, res, req.body)
+    await transport.handleRequest(req, res, req.body)
   }
 
   // Create MCP OAuth middleware - JUST PASS THE HANDLER

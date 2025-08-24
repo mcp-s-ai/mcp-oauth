@@ -7,15 +7,14 @@ import type {
 } from "./types/library.types.js"
 import { createMcpAuthProvider } from "./services/mcp-auth-provider.js"
 import type { OAuthCredentials } from "./types/connector.types.js"
-import { updateCredentials, getByCode } from "./services/db.js"
+import { updateCredentials } from "./services/db.js"
 
 /**
  * Exchange OAuth authorization code for access tokens using the connector's configuration
  */
 async function exchangeOAuthCode(
   config: McpOAuthConfig,
-  authorizationCode: string,
-  redirectUri: string
+  authorizationCode: string
 ): Promise<OAuthCredentials> {
   const { connector } = config
   
@@ -139,11 +138,14 @@ export function McpOAuth(
       const { originalState, code: internalCode, clientId, redirectUri } = stateData
       
       // Step 1: Exchange OAuth provider's authorization code for their access tokens
-      const oauthCredentials = await exchangeOAuthCode(config, oauthCode as string, redirectUri)
+      const oauthCredentials = await exchangeOAuthCode(config, oauthCode as string)
       
       // Step 2: Complete our internal MCP OAuth flow
       const mcpCredentials = await mcpAuthProvider.exchangeAuthorizationCode(
-        { client_id: clientId } as any, // We only need client_id for this call
+        { 
+          client_id: clientId,
+          redirect_uris: [`${config.baseUrl}/oauth/callback`]
+        },
         internalCode
       )
       

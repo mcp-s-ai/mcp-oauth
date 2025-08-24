@@ -127,30 +127,30 @@ This library includes pre-built connectors for popular OAuth providers with mini
 
 | Service | Connector |
 |---------|-----------|
-| <img src="https://www.google.com/s2/favicons?sz=16&domain=slack.com" width="16" height="16" style="vertical-align: middle;"> Slack | `slackConnector` |
-| <img src="https://www.google.com/s2/favicons?sz=16&domain=google.com" width="16" height="16" style="vertical-align: middle;"> Gmail | `gmailConnector` |
-| <img src="https://www.google.com/s2/favicons?sz=16&domain=calendar.google.com" width="16" height="16" style="vertical-align: middle;"> Google Calendar | `googleCalendarConnector` |
-| <img src="https://www.google.com/s2/favicons?sz=16&domain=atlassian.com" width="16" height="16" style="vertical-align: middle;"> Jira | `jiraConnector` |
-| <img src="https://www.google.com/s2/favicons?sz=16&domain=trello.com" width="16" height="16" style="vertical-align: middle;"> Trello | `trelloConnector` |
-| <img src="https://www.google.com/s2/favicons?sz=16&domain=asana.com" width="16" height="16" style="vertical-align: middle;"> Asana | `asanaConnector` |
-| <img src="https://www.google.com/s2/favicons?sz=16&domain=notion.so" width="16" height="16" style="vertical-align: middle;"> Notion | `notionConnector` |
-| <img src="https://www.google.com/s2/favicons?sz=16&domain=monday.com" width="16" height="16" style="vertical-align: middle;"> Monday | `mondayConnector` |
-| <img src="https://www.google.com/s2/favicons?sz=16&domain=github.com" width="16" height="16" style="vertical-align: middle;"> GitHub | `githubConnector` |
-| <img src="https://www.google.com/s2/favicons?sz=16&domain=gitlab.com" width="16" height="16" style="vertical-align: middle;"> GitLab | `gitlabConnector` |
-| <img src="https://www.google.com/s2/favicons?sz=16&domain=workspace.google.com" width="16" height="16" style="vertical-align: middle;"> Google Workspace | `googleWorkspaceConnector` |
-| <img src="https://www.google.com/s2/favicons?sz=16&domain=drive.google.com" width="16" height="16" style="vertical-align: middle;"> Google Drive | `googleDriveConnector` |
-| <img src="https://www.google.com/s2/favicons?sz=16&domain=sheets.google.com" width="16" height="16" style="vertical-align: middle;"> Google Sheets | `googleSheetsConnector` |
-| <img src="https://www.google.com/s2/favicons?sz=16&domain=forms.google.com" width="16" height="16" style="vertical-align: middle;"> Google Forms | `googleFormsConnector` |
-| <img src="https://www.google.com/s2/favicons?sz=16&domain=slides.google.com" width="16" height="16" style="vertical-align: middle;"> Google Slides | `googleSlidesConnector` |
-| <img src="https://www.google.com/s2/favicons?sz=16&domain=salesforce.com" width="16" height="16" style="vertical-align: middle;"> Salesforce | `salesforceConnector` |
-| <img src="https://www.google.com/s2/favicons?sz=16&domain=figma.com" width="16" height="16" style="vertical-align: middle;"> Figma | `figmaConnector` |
-| <img src="https://www.google.com/s2/favicons?sz=16&domain=zeplin.io" width="16" height="16" style="vertical-align: middle;"> Zeplin | `zeplinConnector` |
-| <img src="https://www.google.com/s2/favicons?sz=16&domain=amplitude.com" width="16" height="16" style="vertical-align: middle;"> Amplitude | `amplitudeConnector` |
-| <img src="https://www.google.com/s2/favicons?sz=16&domain=analytics.google.com" width="16" height="16" style="vertical-align: middle;"> Google Analytics | `googleAnalyticsConnector` |
-| <img src="https://www.google.com/s2/favicons?sz=16&domain=maps.google.com" width="16" height="16" style="vertical-align: middle;"> Google Maps | `googleMapsConnector` |
-| <img src="https://www.google.com/s2/favicons?sz=16&domain=discord.com" width="16" height="16" style="vertical-align: middle;"> Discord | `discordConnector` |
-| <img src="https://www.google.com/s2/favicons?sz=16&domain=spotify.com" width="16" height="16" style="vertical-align: middle;"> Spotify | `spotifyConnector` |
-| <img src="https://www.google.com/s2/favicons?sz=16&domain=twitter.com" width="16" height="16" style="vertical-align: middle;"> Twitter | `twitterConnector` |
+| <img src="https://www.google.com/s2/favicons?sz=16&domain=slack.com" width="16" height="16" style="vertical-align: middle;" alt="Slack logo"> Slack | `slackConnector` |
+| <img src="https://www.google.com/s2/favicons?sz=16&domain=google.com" width="16" height="16" style="vertical-align: middle;" alt="Gmail logo"> Gmail | `gmailConnector` |
+| <img src="https://www.google.com/s2/favicons?sz=16&domain=calendar.google.com" width="16" height="16" style="vertical-align: middle;" alt="Google Calendar logo"> Google Calendar | `googleCalendarConnector` |
+| <img src="https://www.google.com/s2/favicons?sz=16&domain=atlassian.com" width="16" height="16" style="vertical-align: middle;" alt="Jira logo"> Jira | `jiraConnector` |
+| <img src="https://www.google.com/s2/favicons?sz=16&domain=trello.com" width="16" height="16" style="vertical-align: middle;" alt="Trello logo"> Trello | `trelloConnector` |
+| <img src="https://www.google.com/s2/favicons?sz=16&domain=asana.com" width="16" height="16" style="vertical-align: middle;" alt="Asana logo"> Asana | `asanaConnector` |
+| <img src="https://www.google.com/s2/favicons?sz=16&domain=notion.so" width="16" height="16" style="vertical-align: middle;" alt="Notion logo"> Notion | `notionConnector` |
+| <img src="https://www.google.com/s2/favicons?sz=16&domain=monday.com" width="16" height="16" style="vertical-align: middle;" alt="Monday.com logo"> Monday | `mondayConnector` |
+| <img src="https://www.google.com/s2/favicons?sz=16&domain=github.com" width="16" height="16" style="vertical-align: middle;" alt="GitHub logo"> GitHub | `githubConnector` |
+| <img src="https://www.google.com/s2/favicons?sz=16&domain=gitlab.com" width="16" height="16" style="vertical-align: middle;" alt="GitLab logo"> GitLab | `gitlabConnector` |
+| <img src="https://www.google.com/s2/favicons?sz=16&domain=workspace.google.com" width="16" height="16" style="vertical-align: middle;" alt="Google Workspace logo"> Google Workspace | `googleWorkspaceConnector` |
+| <img src="https://www.google.com/s2/favicons?sz=16&domain=drive.google.com" width="16" height="16" style="vertical-align: middle;" alt="Google Drive logo"> Google Drive | `googleDriveConnector` |
+| <img src="https://www.google.com/s2/favicons?sz=16&domain=sheets.google.com" width="16" height="16" style="vertical-align: middle;" alt="Google Sheets logo"> Google Sheets | `googleSheetsConnector` |
+| <img src="https://www.google.com/s2/favicons?sz=16&domain=forms.google.com" width="16" height="16" style="vertical-align: middle;" alt="Google Forms logo"> Google Forms | `googleFormsConnector` |
+| <img src="https://www.google.com/s2/favicons?sz=16&domain=slides.google.com" width="16" height="16" style="vertical-align: middle;" alt="Google Slides logo"> Google Slides | `googleSlidesConnector` |
+| <img src="https://www.google.com/s2/favicons?sz=16&domain=salesforce.com" width="16" height="16" style="vertical-align: middle;" alt="Salesforce logo"> Salesforce | `salesforceConnector` |
+| <img src="https://www.google.com/s2/favicons?sz=16&domain=figma.com" width="16" height="16" style="vertical-align: middle;" alt="Figma logo"> Figma | `figmaConnector` |
+| <img src="https://www.google.com/s2/favicons?sz=16&domain=zeplin.io" width="16" height="16" style="vertical-align: middle;" alt="Zeplin logo"> Zeplin | `zeplinConnector` |
+| <img src="https://www.google.com/s2/favicons?sz=16&domain=amplitude.com" width="16" height="16" style="vertical-align: middle;" alt="Amplitude logo"> Amplitude | `amplitudeConnector` |
+| <img src="https://www.google.com/s2/favicons?sz=16&domain=analytics.google.com" width="16" height="16" style="vertical-align: middle;" alt="Google Analytics logo"> Google Analytics | `googleAnalyticsConnector` |
+| <img src="https://www.google.com/s2/favicons?sz=16&domain=maps.google.com" width="16" height="16" style="vertical-align: middle;" alt="Google Maps logo"> Google Maps | `googleMapsConnector` |
+| <img src="https://www.google.com/s2/favicons?sz=16&domain=discord.com" width="16" height="16" style="vertical-align: middle;" alt="Discord logo"> Discord | `discordConnector` |
+| <img src="https://www.google.com/s2/favicons?sz=16&domain=spotify.com" width="16" height="16" style="vertical-align: middle;" alt="Spotify logo"> Spotify | `spotifyConnector` |
+| <img src="https://www.google.com/s2/favicons?sz=16&domain=twitter.com" width="16" height="16" style="vertical-align: middle;" alt="Twitter logo"> Twitter | `twitterConnector` |
 
 ## Example Usage with GitHub
 
@@ -488,7 +488,7 @@ console.log("Result:", result.content)
 
 ### Project Structure
 
-```
+```plaintext
 src/
 ├── index.ts               # Library exports
 ├── server.ts              # MCP server implementation  
