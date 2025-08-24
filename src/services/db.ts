@@ -4,7 +4,6 @@ import type {
   Client,
   ClientInfo,
   Credentials,
-  User,
 } from "../types/clients.types.ts"
 import type { OAuthCredentials } from "../types/connector.types.js"
 
@@ -17,7 +16,6 @@ db.exec(`
     client JSON NOT NULL,
     code TEXT,
     code_challenge TEXT,
-    user JSON,
     credentials JSON,
     oauth_credentials JSON
   )
@@ -44,7 +42,6 @@ function parseClient(client: RawClient): Client {
     client: JSON.parse(client.client) as ClientInfo,
     code: client.code,
     code_challenge: client.code_challenge,
-    user: client.user ? (JSON.parse(client.user) as User) : undefined,
     credentials: client.credentials
       ? (JSON.parse(client.credentials) as Credentials)
       : undefined,
@@ -107,29 +104,14 @@ export function getByCode(client_id: string, code: string): Client | null {
   return parseClient(clientInfo)
 }
 
-export function updateUser({
-  client_id,
-  code,
-  user,
-}: {
-  client_id: string
-  code: string
-  user: User
-}) {
-  db.prepare(
-    `UPDATE clients SET user = ? WHERE client_id = ? AND code = ?`,
-  ).run(JSON.stringify(user), client_id, code)
-}
 
 // LEGACY to support npx @mcp-s/mcp
 export function createUser({
   client_id,
-  access_token,
-  user,
+  access_token
 }: {
   client_id: string
   access_token: string
-  user: User
 }) {
   const credentials = {
     access_token,
@@ -144,7 +126,6 @@ export function createUser({
     client_id,
     JSON.stringify(clientInfo),
     JSON.stringify(credentials),
-    JSON.stringify(user),
   )
 }
 
@@ -186,5 +167,5 @@ export function updateCredentials({
 // Get OAuth access token (e.g., GitHub token) by MCP access token
 export function getOAuthAccessTokenByMcpToken(mcp_access_token: string): string | null {
   const client = getByAccessToken(mcp_access_token)
-  return client?.user?.oauthAccessToken || null
+  return client?.oauth_credentials?.access_token || null
 }

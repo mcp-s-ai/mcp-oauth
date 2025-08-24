@@ -6,11 +6,7 @@ export type {
 } from "./types/library.types.js"
 
 // Export commonly used types for convenience
-export type { User } from "./types/clients.types.js"
 export type { Connector, OAuthCredentials } from "./types/connector.types.js"
-
-// Export utility functions that might be useful
-// export { validateConfig, loadConfig } from "./libs/config.js" // TODO: Add config utilities
 
 // Export all connectors
 export * from "./connectors/index.js"

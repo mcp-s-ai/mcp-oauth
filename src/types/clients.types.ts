@@ -1,5 +1,3 @@
-import type { DefaultUser } from "@auth/core/types"
-
 export interface ClientInfo {
   client_id: string
   client_name?: string
@@ -11,17 +9,12 @@ export interface ClientInfo {
   client_secret_expires_at?: number
 }
 
-export type User = DefaultUser & {
-  // OAuth provider access token (e.g., GitHub access token)
-  oauthAccessToken?: string;
-};
-
 export interface Credentials {
-    access_token: string,
-    token_type: "Bearer",
-    access_token_expired_at: number,
-    scope: string,
-    refresh_token: string,
+  access_token: string
+  token_type: "Bearer"
+  access_token_expired_at: number
+  scope: string
+  refresh_token: string
 }
 
 export interface Client {
@@ -29,7 +22,6 @@ export interface Client {
   client: ClientInfo
   code?: string
   code_challenge?: string
-  user?: User
   credentials?: Credentials
   oauth_credentials?: Credentials
 }
