@@ -96,4 +96,4 @@ jobs:
             ## Changes in v${{ steps.version.outputs.new_version }}
 
             - Automated release from ${{ github.ref_name }} branch
-            - Install with: `npx mcp-s-oauth`
+            - Install with: `npm i mcp-s-oauth`
