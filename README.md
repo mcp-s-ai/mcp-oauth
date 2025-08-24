@@ -8,13 +8,14 @@ This library provides OAuth authentication for MCP servers using a flexible conn
 
 ## Features
 
-- 🔐 **Universal OAuth Support** - Works with GitHub, Google, and any OAuth 2.0 provider
-- 🔌 **Connector Pattern** - Easily add support for new OAuth providers
+- 🔐 **Universal OAuth Support** - Works with 20+ OAuth providers including GitHub, Google, Slack, and more
+- 🔌 **Connector Pattern** - Pre-built connectors for popular services + easily add support for new OAuth providers
 - 🚀 **Express Middleware** - Simple integration with `app.use()`
 - 🛠️ **Bring Your Own MCP Server** - Create MCP server in your handler function
 - 📊 **Session Management** - Automatic session handling via MCP SDK
 - 🌐 **Authenticated Context** - Access OAuth tokens in your tools
 - 🎯 **Production Ready** - Built with official MCP SDK components
+- 🔑 **Minimal Scopes** - Uses minimal OAuth scopes for enhanced security
 
 ## Installation
 
@@ -141,11 +142,53 @@ For any OAuth 2.0 provider, you'll need:
 1. Client ID and Client Secret from your provider
 2. Authorization callback URL set to: `${baseUrl}/oauth/callback`
 
-## Connector Examples
+## Available Connectors
 
-The library uses a connector pattern to support any OAuth provider. Here are examples:
+This library includes pre-built connectors for popular OAuth providers with minimal scopes for enhanced security:
 
-### GitHub Connector
+### Communication & Collaboration
+- ![Slack](https://www.google.com/s2/favicons?sz=64&domain=slack.com) **Slack** - `slackConnector`
+- ![Gmail](https://www.google.com/s2/favicons?sz=64&domain=gmail.com) **Gmail** - `gmailConnector`
+- ![Google Calendar](https://www.google.com/s2/favicons?sz=64&domain=calendar.google.com) **Google Calendar** - `googleCalendarConnector`
+
+### Project & Task Management
+- ![Jira](https://www.google.com/s2/favicons?sz=64&domain=atlassian.com) **Jira** - `jiraConnector`
+- ![Trello](https://www.google.com/s2/favicons?sz=64&domain=trello.com) **Trello** - `trelloConnector`
+- ![Asana](https://www.google.com/s2/favicons?sz=64&domain=asana.com) **Asana** - `asanaConnector`
+- ![Notion](https://www.google.com/s2/favicons?sz=64&domain=notion.so) **Notion** - `notionConnector`
+- ![Monday](https://www.google.com/s2/favicons?sz=64&domain=monday.com) **Monday** - `mondayConnector`
+
+### Code Management & DevOps
+- ![GitHub](https://www.google.com/s2/favicons?sz=64&domain=github.com) **GitHub** - `githubConnector`
+- ![GitLab](https://www.google.com/s2/favicons?sz=64&domain=gitlab.com) **GitLab** - `gitlabConnector`
+
+### File Storage & Docs
+- ![Google Workspace](https://www.google.com/s2/favicons?sz=64&domain=workspace.google.com) **Google Workspace** - `googleWorkspaceConnector`
+- ![Google Drive](https://www.google.com/s2/favicons?sz=64&domain=drive.google.com) **Google Drive** - `googleDriveConnector`
+- ![Google Sheets](https://www.google.com/s2/favicons?sz=64&domain=sheets.google.com) **Google Sheets** - `googleSheetsConnector`
+- ![Google Forms](https://www.google.com/s2/favicons?sz=64&domain=forms.google.com) **Google Forms** - `googleFormsConnector`
+- ![Google Slides](https://www.google.com/s2/favicons?sz=64&domain=slides.google.com) **Google Slides** - `googleSlidesConnector`
+
+### CRM & Sales
+- ![Salesforce](https://www.google.com/s2/favicons?sz=64&domain=salesforce.com) **Salesforce** - `salesforceConnector`
+
+### Design & Prototyping
+- ![Figma](https://www.google.com/s2/favicons?sz=64&domain=figma.com) **Figma** - `figmaConnector`
+- ![Zeplin](https://www.google.com/s2/favicons?sz=64&domain=zeplin.io) **Zeplin** - `zeplinConnector`
+
+### Analytics & Product Insights
+- ![Amplitude](https://www.google.com/s2/favicons?sz=64&domain=amplitude.com) **Amplitude** - `amplitudeConnector`
+- ![Google Analytics](https://www.google.com/s2/favicons?sz=64&domain=analytics.google.com) **Google Analytics** - `googleAnalyticsConnector`
+
+### Maps & Location
+- ![Google Maps](https://www.google.com/s2/favicons?sz=64&domain=maps.google.com) **Google Maps** - `googleMapsConnector`
+
+### Generic OAuth
+- ![Discord](https://www.google.com/s2/favicons?sz=64&domain=discord.com) **Discord** - `discordConnector`
+- ![Spotify](https://www.google.com/s2/favicons?sz=64&domain=spotify.com) **Spotify** - `spotifyConnector`
+- ![Twitter](https://www.google.com/s2/favicons?sz=64&domain=twitter.com) **Twitter** - `twitterConnector`
+
+## Example Usage with GitHub
 
 ```typescript
 import { githubConnector } from "mcp-s-oauth"
@@ -158,33 +201,9 @@ const config: McpOAuthConfig = {
 }
 ```
 
-### Google Connector
+## Custom Connector
 
-```typescript
-import { googleConnector } from "mcp-s-oauth"
-
-const config: McpOAuthConfig = {
-  baseUrl: "http://localhost:3000",
-  clientId: process.env.GOOGLE_CLIENT_ID!,
-  clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-  connector: googleConnector,
-}
-```
-
-### Discord Connector
-
-```typescript
-import { discordConnector } from "mcp-s-oauth"
-
-const config: McpOAuthConfig = {
-  baseUrl: "http://localhost:3000",
-  clientId: process.env.DISCORD_CLIENT_ID!,
-  clientSecret: process.env.DISCORD_CLIENT_SECRET!,
-  connector: discordConnector,
-}
-```
-
-### Custom Connector
+For any OAuth provider not listed above:
 
 ```typescript
 import type { Connector } from "mcp-s-oauth"
@@ -331,11 +350,11 @@ const config: McpOAuthConfig = {
    - **Scopes**: Ensure scopes are valid for your provider
    - **Callback URL**: Must match OAuth app configuration
 
-## Example Tools by Provider
+## Example Tools Implementation
 
-The tools you create depend on your OAuth provider and their APIs. The library provides the OAuth token - you implement the tools. Here are examples:
+The tools you create depend on your OAuth provider and their APIs. The library provides the OAuth token - you implement the tools. Here's a complete GitHub example:
 
-### GitHub Tools
+### GitHub Tools Example
 
 ```typescript
 // In your mcpHandler function
@@ -353,6 +372,16 @@ mcpServer.setRequestHandler(ListToolsRequestSchema, async () => ({
         type: "object",
         properties: {
           type: { type: "string", enum: ["all", "owner", "member"] }
+        }
+      }
+    },
+    {
+      name: "github_issues",
+      description: "List user's issues",
+      inputSchema: { 
+        type: "object",
+        properties: {
+          state: { type: "string", enum: ["open", "closed", "all"] }
         }
       }
     }
@@ -374,38 +403,10 @@ mcpServer.setRequestHandler(CallToolRequestSchema, async (request, { authInfo })
     })
     return { content: [{ type: "text", text: await response.text() }] }
   }
-})
-```
 
-### Google Tools
-
-```typescript
-// In your mcpHandler function
-mcpServer.setRequestHandler(ListToolsRequestSchema, async () => ({
-  tools: [
-    {
-      name: "google_profile",
-      description: "Get Google user profile",
-      inputSchema: { type: "object", properties: {} }
-    },
-    {
-      name: "google_calendar",
-      description: "List calendar events",
-      inputSchema: { type: "object", properties: {} }
-    }
-  ]
-}))
-
-mcpServer.setRequestHandler(CallToolRequestSchema, async (request, { authInfo }) => {
-  if (request.params.name === "google_profile") {
-    const response = await fetch("https://www.googleapis.com/oauth2/v2/userinfo", {
-      headers: { "Authorization": `Bearer ${authInfo.token}` }
-    })
-    return { content: [{ type: "text", text: await response.text() }] }
-  }
-  
-  if (request.params.name === "google_calendar") {
-    const response = await fetch("https://www.googleapis.com/calendar/v3/calendars/primary/events", {
+  if (request.params.name === "github_issues") {
+    const { state = "open" } = request.params.arguments || {}
+    const response = await fetch(`https://api.github.com/issues?state=${state}`, {
       headers: { "Authorization": `Bearer ${authInfo.token}` }
     })
     return { content: [{ type: "text", text: await response.text() }] }
@@ -413,41 +414,15 @@ mcpServer.setRequestHandler(CallToolRequestSchema, async (request, { authInfo })
 })
 ```
 
-### Discord Tools
+### Other Provider Examples
 
-```typescript
-// In your mcpHandler function
-mcpServer.setRequestHandler(ListToolsRequestSchema, async () => ({
-  tools: [
-    {
-      name: "discord_me",
-      description: "Get Discord user info",
-      inputSchema: { type: "object", properties: {} }
-    },
-    {
-      name: "discord_guilds",
-      description: "List user's Discord servers",
-      inputSchema: { type: "object", properties: {} }
-    }
-  ]
-}))
+For other OAuth providers, follow the same pattern using their respective APIs:
 
-mcpServer.setRequestHandler(CallToolRequestSchema, async (request, { authInfo }) => {
-  if (request.params.name === "discord_me") {
-    const response = await fetch("https://discord.com/api/users/@me", {
-      headers: { "Authorization": `Bearer ${authInfo.token}` }
-    })
-    return { content: [{ type: "text", text: await response.text() }] }
-  }
-  
-  if (request.params.name === "discord_guilds") {
-    const response = await fetch("https://discord.com/api/users/@me/guilds", {
-      headers: { "Authorization": `Bearer ${authInfo.token}` }
-    })
-    return { content: [{ type: "text", text: await response.text() }] }
-  }
-})
-```
+- **Slack**: Use `https://slack.com/api/` endpoints
+- **Google Services**: Use Google API endpoints (Gmail, Drive, Sheets, etc.)
+- **Notion**: Use `https://api.notion.com/v1/` endpoints
+- **Jira**: Use Atlassian REST API endpoints
+- **And more...** - Each connector works with the provider's standard OAuth API
 
 ## MCP Client Usage
 
