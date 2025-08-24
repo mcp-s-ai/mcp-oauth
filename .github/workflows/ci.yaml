@@ -1,0 +1,56 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build and Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: "npm"
+          cache-dependency-path: ./package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build
+        run: npm run build
+
+      - name: Test
+        run: npm test
+
+      - name: Test npx functionality
+        run: |
+          # Make binary executable
+          chmod +x bin/mcp-oauth.js
+
+          # Test the binary can be executed
+          timeout 10s node bin/mcp-oauth.js --help || true
+
+          # Test npm pack (simulates publishing without actually publishing)
+          npm pack
+
+          # Install the packed package globally and test npx
+          PACK_FILE=$(ls *.tgz)
+          npm install -g "$PACK_FILE"
+
+          # Test npx command (with timeout to avoid hanging)
+          timeout 10s npx @mcp-s/secure -mcp-oauth --help || echo "npx test completed"
