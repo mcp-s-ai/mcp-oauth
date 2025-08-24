@@ -1,4 +1,4 @@
-# MCP OAuth
+# MCP S OAuth
 
 Universal OAuth middleware library for MCP (Model Context Protocol) servers with support for any OAuth provider.
 
@@ -30,14 +30,14 @@ npm install
 import express from "express"
 import { Server } from "@modelcontextprotocol/sdk/server/index.js"
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js"
-import { McpOAuth } from "mcp-oauth"
-import type { McpOAuthConfig } from "mcp-oauth"
+import { McpOAuth } from "mcp-s-oauth"
+import type { McpOAuthConfig } from "mcp-s-oauth"
 
 const app = express()
 
 // Choose your OAuth provider connector
-import { githubConnector } from "mcp-oauth"
-// or import { googleConnector } from "mcp-oauth"
+import { githubConnector } from "mcp-s-oauth"
+// or import { googleConnector } from "mcp-s-oauth"
 // or create your own custom connector
 
 // Configure OAuth with any provider
@@ -49,9 +49,9 @@ const config: McpOAuthConfig = {
 }
 
 // Create your MCP handler - this is where YOU create the MCP server
-const mcpHandler = async (req: express.Request, res: express.Response) => {
+const mcpHandler = async (req: express.Request, res: express.Response, { authInfo }) => {
   // Access the OAuth token from any provider
-  const oauthToken = req.auth?.token
+  const oauthToken = authInfo.token
   
   // Create transport and your MCP server
   const transport = new StreamableHTTPServerTransport(/* options */)
@@ -74,7 +74,7 @@ const mcpHandler = async (req: express.Request, res: express.Response) => {
       const apiUrl = "https://api.github.com/user" // adjust for your provider
       
       const response = await fetch(apiUrl, {
-        headers: { "Authorization": `Bearer ${oauthToken}` }
+        headers: { "Authorization": `Bearer ${authInfo.token}` }
       })
       const userData = await response.json()
       
@@ -123,7 +123,7 @@ PORT=3000
 
 1. Go to [GitHub Developer Settings](https://github.com/settings/developers)
 2. Create a new OAuth App:
-   - **Authorization callback URL**: `http://localhost:3000/authorized`
+   - **Authorization callback URL**: `${baseUrl}/oauth/callback` (e.g., `http://localhost:3000/oauth/callback`)
 3. Use the Client ID and Secret in your config
 
 ### Google OAuth App Setup
@@ -132,14 +132,14 @@ PORT=3000
 2. Create a new project or select existing
 3. Enable the "Google+ API" or "People API"
 4. Create OAuth 2.0 credentials:
-   - **Authorized redirect URIs**: `http://localhost:3000/authorized`
+   - **Authorized redirect URIs**: `${baseUrl}/oauth/callback` (e.g., `http://localhost:3000/oauth/callback`)
 5. Use the Client ID and Secret in your config
 
 ### Custom OAuth Provider Setup
 
 For any OAuth 2.0 provider, you'll need:
 1. Client ID and Client Secret from your provider
-2. Authorization callback URL set to: `{YOUR_BASE_URL}/authorized`
+2. Authorization callback URL set to: `${baseUrl}/oauth/callback`
 
 ## Connector Examples
 
@@ -148,7 +148,7 @@ The library uses a connector pattern to support any OAuth provider. Here are exa
 ### GitHub Connector
 
 ```typescript
-import { githubConnector } from "mcp-oauth"
+import { githubConnector } from "mcp-s-oauth"
 
 const config: McpOAuthConfig = {
   baseUrl: "http://localhost:3000",
@@ -161,7 +161,7 @@ const config: McpOAuthConfig = {
 ### Google Connector
 
 ```typescript
-import { googleConnector } from "mcp-oauth"
+import { googleConnector } from "mcp-s-oauth"
 
 const config: McpOAuthConfig = {
   baseUrl: "http://localhost:3000",
@@ -174,7 +174,7 @@ const config: McpOAuthConfig = {
 ### Discord Connector
 
 ```typescript
-import { discordConnector } from "mcp-oauth"
+import { discordConnector } from "mcp-s-oauth"
 
 const config: McpOAuthConfig = {
   baseUrl: "http://localhost:3000",
@@ -187,7 +187,7 @@ const config: McpOAuthConfig = {
 ### Custom Connector
 
 ```typescript
-import type { Connector } from "mcp-oauth"
+import type { Connector } from "mcp-s-oauth"
 
 const myCustomConnector: Connector = {
   authUrl: "https://your-provider.com/oauth/authorize",
@@ -359,10 +359,10 @@ mcpServer.setRequestHandler(ListToolsRequestSchema, async () => ({
   ]
 }))
 
-mcpServer.setRequestHandler(CallToolRequestSchema, async (request) => {
+mcpServer.setRequestHandler(CallToolRequestSchema, async (request, { authInfo }) => {
   if (request.params.name === "github_me") {
     const response = await fetch("https://api.github.com/user", {
-      headers: { "Authorization": `Bearer ${oauthToken}` }
+      headers: { "Authorization": `Bearer ${authInfo.token}` }
     })
     return { content: [{ type: "text", text: await response.text() }] }
   }
@@ -370,7 +370,7 @@ mcpServer.setRequestHandler(CallToolRequestSchema, async (request) => {
   if (request.params.name === "github_repos") {
     const { type = "all" } = request.params.arguments || {}
     const response = await fetch(`https://api.github.com/user/repos?type=${type}`, {
-      headers: { "Authorization": `Bearer ${oauthToken}` }
+      headers: { "Authorization": `Bearer ${authInfo.token}` }
     })
     return { content: [{ type: "text", text: await response.text() }] }
   }
@@ -396,17 +396,17 @@ mcpServer.setRequestHandler(ListToolsRequestSchema, async () => ({
   ]
 }))
 
-mcpServer.setRequestHandler(CallToolRequestSchema, async (request) => {
+mcpServer.setRequestHandler(CallToolRequestSchema, async (request, { authInfo }) => {
   if (request.params.name === "google_profile") {
     const response = await fetch("https://www.googleapis.com/oauth2/v2/userinfo", {
-      headers: { "Authorization": `Bearer ${oauthToken}` }
+      headers: { "Authorization": `Bearer ${authInfo.token}` }
     })
     return { content: [{ type: "text", text: await response.text() }] }
   }
   
   if (request.params.name === "google_calendar") {
     const response = await fetch("https://www.googleapis.com/calendar/v3/calendars/primary/events", {
-      headers: { "Authorization": `Bearer ${oauthToken}` }
+      headers: { "Authorization": `Bearer ${authInfo.token}` }
     })
     return { content: [{ type: "text", text: await response.text() }] }
   }
@@ -432,17 +432,17 @@ mcpServer.setRequestHandler(ListToolsRequestSchema, async () => ({
   ]
 }))
 
-mcpServer.setRequestHandler(CallToolRequestSchema, async (request) => {
+mcpServer.setRequestHandler(CallToolRequestSchema, async (request, { authInfo }) => {
   if (request.params.name === "discord_me") {
     const response = await fetch("https://discord.com/api/users/@me", {
-      headers: { "Authorization": `Bearer ${oauthToken}` }
+      headers: { "Authorization": `Bearer ${authInfo.token}` }
     })
     return { content: [{ type: "text", text: await response.text() }] }
   }
   
   if (request.params.name === "discord_guilds") {
     const response = await fetch("https://discord.com/api/users/@me/guilds", {
-      headers: { "Authorization": `Bearer ${oauthToken}` }
+      headers: { "Authorization": `Bearer ${authInfo.token}` }
     })
     return { content: [{ type: "text", text: await response.text() }] }
   }
@@ -500,7 +500,7 @@ console.log("Result:", result)
 
 - **POST /auth/authorize** - Start OAuth flow with configured provider
 - **POST /auth/token** - Exchange authorization code for access token  
-- **GET /authorized** - OAuth callback handler (used by the provider)
+- **GET /oauth/callback** - OAuth callback handler (used by the provider)
 
 ### MCP Protocol
 
@@ -663,7 +663,7 @@ if (name === "get_user_data") {
   const apiUrl = "https://api.your-provider.com/user" // adjust for your provider
   const response = await fetch(apiUrl, {
     headers: {
-      "Authorization": `Bearer ${oauthToken}`,
+      "Authorization": `Bearer ${authInfo.token}`,
       "Accept": "application/json"
     }
   })
@@ -699,7 +699,7 @@ if (name === "get_user_data") {
 
 2. **OAuth callback errors**
    - Verify your `BASE_URL` matches your OAuth app configuration
-   - Check that Authorization callback URL is set to `{BASE_URL}/authorized`
+   - Check that Authorization callback URL is set to `${baseUrl}/oauth/callback`
    - Ensure your OAuth provider app is configured correctly
 
 3. **Token exchange errors**
@@ -741,9 +741,9 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ## Support
 
-- 📚 [Documentation](https://github.com/mcp-s-ai/mcp-oauth/wiki)
-- 🐛 [Issues](https://github.com/mcp-s-ai/mcp-oauth/issues)
-- 💬 [Discussions](https://github.com/mcp-s-ai/mcp-oauth/discussions)
+- 📚 [Documentation](https://github.com/mcp-s-ai/mcp-s-oauth/wiki)
+- 🐛 [Issues](https://github.com/mcp-s-ai/mcp-s-oauth/issues)
+- 💬 [Discussions](https://github.com/mcp-s-ai/mcp-s-oauth/discussions)
 
 ## Related Projects
 

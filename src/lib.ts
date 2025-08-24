@@ -124,7 +124,7 @@ export function McpOAuth(
     }),
   )
 
-  router.get("/authorized", async (req, res) => {
+  router.get("/oauth/callback", async (req, res) => {
     try {
       console.log("authorized", req.query)
       
