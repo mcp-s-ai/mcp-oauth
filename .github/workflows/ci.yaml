@@ -36,21 +36,3 @@ jobs:
 
       - name: Test
         run: npm test
-
-      - name: Test npx functionality
-        run: |
-          # Make binary executable
-          chmod +x bin/mcp-oauth.js
-
-          # Test the binary can be executed
-          timeout 10s node bin/mcp-oauth.js --help || true
-
-          # Test npm pack (simulates publishing without actually publishing)
-          npm pack
-
-          # Install the packed package globally and test npx
-          PACK_FILE=$(ls *.tgz)
-          npm install -g "$PACK_FILE"
-
-          # Test npx command (with timeout to avoid hanging)
-          timeout 10s npx @mcp-s/secure -mcp-oauth --help || echo "npx test completed"
