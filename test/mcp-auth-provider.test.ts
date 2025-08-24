@@ -1,10 +1,12 @@
 import { describe, it, beforeEach } from "node:test"
 import assert from "node:assert/strict"
-import { mcpAuthProvider } from "../src/services/mcp-auth-provider.ts"
+import { createMcpAuthProvider } from "../src/services/mcp-auth-provider.ts"
 import { DatabaseSync } from "node:sqlite"
 import path from "path"
 import type { OAuthClientInformationFull } from "@modelcontextprotocol/sdk/shared/auth.js"
 import type { Credentials } from "../src/types/clients.types.ts"
+import type { McpOAuthConfig } from "../src/types/library.types.ts"
+import { githubConnector } from "../src/connectors/github.ts"
 
 process.env.BASE_URL = "http://localhost"
 
@@ -15,6 +17,15 @@ function clearClientsTable() {
 }
 
 describe("MCP Auth Provider", () => {
+  const testConfig: McpOAuthConfig = {
+    baseUrl: "http://localhost",
+    clientId: "test-client-id",
+    clientSecret: "test-client-secret",
+    connector: githubConnector,
+  }
+
+  const mcpAuthProvider = createMcpAuthProvider(testConfig)
+
   beforeEach(() => {
     clearClientsTable()
   })
@@ -70,7 +81,7 @@ describe("MCP Auth Provider", () => {
     }, /Unauthorized/)
   })
 
-  it("authorize should redirect with correct params", async () => {
+  it("authorize should redirect to OAuth provider with correct params", async () => {
     // Insert client
     db.prepare(`INSERT INTO clients (client_id, client) VALUES (?, ?)`).run(
       client.client_id,
@@ -92,14 +103,26 @@ describe("MCP Auth Provider", () => {
       },
       res as unknown as import("express").Response,
     )
-    const url = new URL(redirectedUrl);
-    const callbackUrl = url.searchParams.get("callbackUrl");
-    assert(callbackUrl, "callbackUrl param should exist in redirect");
-
-    // Now decode and check the inner URL
-    const decodedCallbackUrl = decodeURIComponent(callbackUrl);
-    assert(decodedCallbackUrl.includes("state=abc123"));
-    assert(decodedCallbackUrl.includes("code="));
+    
+    // Should redirect to GitHub OAuth authorization URL
+    const url = new URL(redirectedUrl)
+    assert.equal(url.origin + url.pathname, "https://github.com/login/oauth/authorize")
+    
+    // Check required OAuth parameters
+    assert.equal(url.searchParams.get("client_id"), "test-client-id")
+    assert.equal(url.searchParams.get("redirect_uri"), "http://localhost/authorized")
+    assert.equal(url.searchParams.get("response_type"), "code")
+    assert.equal(url.searchParams.get("scope"), "repo")
+    assert.equal(url.searchParams.get("access_type"), "offline")
+    
+    // Check that state parameter contains JSON with all necessary data
+    const stateParam = url.searchParams.get("state")
+    assert(stateParam, "state parameter should exist")
+    const stateData = JSON.parse(stateParam)
+    assert.equal(stateData.originalState, "abc123", "state should contain original state")
+    assert.equal(stateData.clientId, "client-1", "state should contain client ID")
+    assert.equal(stateData.redirectUri, "http://localhost/callback", "state should contain redirect URI")
+    assert(stateData.code, "state should contain generated code")
   })
 
   it("challengeForAuthorizationCode should return code_challenge", async () => {

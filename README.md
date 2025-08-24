@@ -392,9 +392,9 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ## Support
 
-- 📚 [Documentation](https://github.com/webrix-ai/mcp-oauth/wiki)
-- 🐛 [Issues](https://github.com/webrix-ai/mcp-oauth/issues)
-- 💬 [Discussions](https://github.com/webrix-ai/mcp-oauth/discussions)
+- 📚 [Documentation](https://github.com/mcp-s-ai/mcp-oauth/wiki)
+- 🐛 [Issues](https://github.com/mcp-s-ai/mcp-oauth/issues)
+- 💬 [Discussions](https://github.com/mcp-s-ai/mcp-oauth/discussions)
 
 ## Related Projects
 

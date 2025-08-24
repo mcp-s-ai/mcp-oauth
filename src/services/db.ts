@@ -6,9 +6,10 @@ import type {
   Credentials,
   User,
 } from "../types/clients.types.ts"
-import { envVars } from "../libs/config.js"
+import type { OAuthCredentials } from "../types/connector.types.js"
 
-const db = new Database(path.resolve(envVars.DB_PATH))
+
+const db = new Database(path.resolve(process.env.DB_PATH || "./mcp.sqlite"))
 
 db.exec(`
   CREATE TABLE IF NOT EXISTS clients (
@@ -17,7 +18,8 @@ db.exec(`
     code TEXT,
     code_challenge TEXT,
     user JSON,
-    credentials JSON
+    credentials JSON,
+    oauth_credentials JSON
   )
 `)
 
@@ -33,6 +35,7 @@ interface RawClient {
   code_challenge?: string
   user?: string
   credentials?: string
+  oauth_credentials?: string
 }
 
 function parseClient(client: RawClient): Client {
@@ -127,7 +130,7 @@ export function createUser({
 }) {
   const credentials = {
     access_token,
-    access_token_expired_at: Date.now() + envVars.TOKEN_EXPIRATION_TIME,
+    access_token_expired_at: Date.now() + (parseInt(process.env.TOKEN_EXPIRATION_TIME || "3600000", 10)),
   }
   const clientInfo: ClientInfo = {
     client_id,
@@ -157,14 +160,24 @@ export function getByRefreshToken(refresh_token: string): Client | null {
 export function updateCredentials({
   client_id,
   credentials,
+  oauth_credentials,
 }: {
   client_id: string
   credentials: Credentials
+  oauth_credentials?: OAuthCredentials
 }) {
-  db.prepare(`UPDATE clients SET credentials = ? WHERE client_id = ?`).run(
-    JSON.stringify(credentials),
-    client_id,
-  )
+  if (oauth_credentials) {
+    db.prepare(`UPDATE clients SET credentials = ?, oauth_credentials = ? WHERE client_id = ?`).run(
+      JSON.stringify(credentials),
+      JSON.stringify(oauth_credentials),
+      client_id,
+    )
+  } else {
+    db.prepare(`UPDATE clients SET credentials = ? WHERE client_id = ?`).run(
+      JSON.stringify(credentials),
+      client_id,
+    )
+  }
 }
 
 // Get OAuth access token (e.g., GitHub token) by MCP access token

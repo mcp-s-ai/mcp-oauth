@@ -1,5 +1,5 @@
 import { createHmac } from "crypto"
-import { envVars } from "./config.js"
+
 
 export const signTokens = ({
   userAccessKey,
@@ -8,7 +8,7 @@ export const signTokens = ({
   userAccessKey: string
   token: string
 }) => {
-  const hmac = createHmac("sha256", envVars.AUTH_SECRET)
+  const hmac = createHmac("sha256", process.env.AUTH_SECRET || "default-secret")
   hmac.update(`${userAccessKey}:${token}`)
   const signature = hmac.digest("base64url")
 
@@ -29,7 +29,7 @@ export const verifyToken = (signedToken: string) => {
     throw new Error("Invalid token format")
   }
 
-  const hmac = createHmac("sha256", envVars.AUTH_SECRET)
+  const hmac = createHmac("sha256", process.env.AUTH_SECRET || "default-secret")
   hmac.update(`${tokenPayload.userAccessKey}:${tokenPayload.token}`)
   const expectedSignature = hmac.digest("base64url")
 
