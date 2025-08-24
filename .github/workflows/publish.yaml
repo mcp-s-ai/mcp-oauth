@@ -7,9 +7,6 @@ on:
       - "src/**"
       - "package.json"
       - "package-lock.json"
-    paths-ignore:
-      - "src/**/*.test.ts"
-      - "src/**/*.test.js"
   workflow_dispatch:
 
 permissions:
