@@ -7,6 +7,7 @@ import type { OAuthClientInformationFull } from "@modelcontextprotocol/sdk/share
 import type { Credentials } from "../src/types/clients.types.ts"
 import type { McpOAuthConfig } from "../src/types/library.types.ts"
 import { githubConnector } from "../src/connectors/github.ts"
+import { OAuthCredentials } from "../src/types/connector.types.ts"
 
 process.env.BASE_URL = "http://localhost"
 
@@ -48,6 +49,12 @@ describe("MCP Auth Provider", () => {
     scope: "openid profile",
     refresh_token: "refresh-token-1",
   }
+
+  const oauthCredentials: OAuthCredentials = {
+    access_token: "oauth-access-token-1",
+    token_type: "Bearer",
+    scope: "openid profile",
+  }
   
   it("registerClient and getClient should work", async () => {
     await mcpAuthProvider.clientsStore.registerClient!(client)
@@ -64,12 +71,12 @@ describe("MCP Auth Provider", () => {
   it("verifyAccessToken should return info for valid token", async () => {
     // Insert client with credentials
     db.prepare(
-      `INSERT INTO clients (client_id, client, credentials) VALUES (?, ?, ?)`,
-    ).run(client.client_id, JSON.stringify(client), JSON.stringify(credentials))
+      `INSERT INTO clients (client_id, client, credentials, oauth_credentials) VALUES (?, ?, ?, ?)`,
+    ).run(client.client_id, JSON.stringify(client), JSON.stringify(credentials), JSON.stringify(oauthCredentials))
     const result = await mcpAuthProvider.verifyAccessToken(
       credentials.access_token,
     )
-    assert.equal(result.token, credentials.access_token)
+    assert.equal(result.token, oauthCredentials.access_token)
     assert.equal(result.clientId, client.client_id)
     assert(result.expiresAt && result.expiresAt > Date.now())
     assert.deepEqual(result.scopes, ["openid", "email", "profile"])
