@@ -54,6 +54,9 @@ describe("MCP Auth Provider", () => {
     access_token: "oauth-access-token-1",
     token_type: "Bearer",
     scope: "openid profile",
+    expires_at: (Date.now() + 10000).toString(),
+    refresh_token: "refresh-token-1",
+    refresh_token_expires_at: (Date.now() + 10000).toString(),
   }
   
   it("registerClient and getClient should work", async () => {
